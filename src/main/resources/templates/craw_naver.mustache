@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>네이버 크롤링 하기</h1>
+	<hr />
+	<form id="frm">
+		<input type="text" name="keyword" placeholder="제품명" />
+		
+	</form>
+	<button onclick="crawNaver()">크롤링시작</button>
+	<script>
+		function crawNaver() {
+			let data = $("#frm").serialize();
+			console.log(data);
+			
+			fetch("/craw/naver/proc",{
+				method: "post",
+				data: data,
+				headers: {
+					'Content-Type':'application/x-www-form-urlencoded;charset=utf-8'	
+				}				
+			},60000).then(function(resp){
+				return resp.text();
+			}).then(function(resp){
+				alert(resp);
+			}).catch(function(error){
+				console.log(error);
+			});
+			
+		}
+	</script>
+</body>
+</html>
